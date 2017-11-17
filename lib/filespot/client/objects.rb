@@ -28,7 +28,7 @@ module Filespot
     # returns a file info
     def post_object(file, name = nil)
       file_io = Faraday::UploadIO.new(file, 'application/octet-stream')
-      res = Response.new(Request.post("/objects", {}, { file: file_io, name: name }))
+      res = Response.new(Request.post("/objects", {}, { file: file_io, name: name, autoencoding: true, autoplayer: true }))
       return res unless res.code == 200
 
       Object.new(res.data['object'])
