@@ -26,9 +26,15 @@ module Filespot
     # * +file+ - file path(*required*)
     # * +name+ - name that will be stored in API service
     # returns a file info
-    def post_object(file, name = nil)
+    def post_object(file, name = nil, autoencoding = false, autoplayer = false, presets = "")
       file_io = Faraday::UploadIO.new(file, 'application/octet-stream')
-      res = Response.new(Request.post("/objects", {}, { file: file_io, name: name, autoencoding: true, autoplayer: true }))
+      res = Response.new(Request.post("/objects", {}, {
+        file: file_io,
+        name: name,
+        autoencoding: autoencoding,
+        autoplayer: autoplayer,
+        presets: presets,
+        }))
       return res unless res.code == 200
 
       Object.new(res.data['object'])
