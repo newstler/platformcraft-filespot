@@ -33,7 +33,7 @@ module Filespot
         name: name,
         autoencoding: autoencoding,
         autoplayer: autoplayer,
-        presets: presets,
+        presets: presets
         }))
       return res unless res.code == 200
 
