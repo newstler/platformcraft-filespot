@@ -25,8 +25,11 @@ module Filespot
     # POST /objects
     # * +file+ - file path(*required*)
     # * +name+ - name that will be stored in API service
+    # * +autoencoding+ - if 'true', transcoding will be started right after upload; requires +presets+ option to be set.
+    # * +autoplayer+ - if 'true', the player will be created from original file if +autoencoding+ is set to 'false', or from transcoded files if +autoencoding+ is set to 'true'
+    # * +presets+ - IDs of presets of fromats to transcode file to, separated by coma
     # returns a file info
-    def post_object(file, name = nil, autoencoding = false, autoplayer = false, presets = "")
+    def post_object(file, name = nil, autoencoding = 'false', autoplayer = 'false', presets = '')
       file_io = Faraday::UploadIO.new(file, 'application/octet-stream')
       res = Response.new(Request.post("/objects", {}, {
         file: file_io,
